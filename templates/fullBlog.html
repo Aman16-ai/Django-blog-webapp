@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% block css %}
+<style>
+   
+    .container {
+        width: 100%;
+        
+    }
+
+    #mainImg {
+        width: 100%;
+        height: 60vh;
+        margin-top: 2rem;
+    }
+
+    #mainHeading {
+        margin-top: 1rem;
+        text-align: center;
+        font-weight: 500;
+        line-height: 1.2;
+    }
+
+    #authorHeading {
+        margin-top: 0.5rem;
+
+    }
+    
+</style>
+{% endblock css %}
+{% block body %}
+<div class="mainbody">
+    <div class="container">
+        <h1 id="mainHeading">{{post.title}}</h1>
+        <h6 id="authorHeading">Written by {{post.author}} on {{post.date}}</h6>
+        <img src="/media/{{post.img}}" alt="" id="mainImg">
+        <p>{{post.content|safe}}</p>
+    
+    
+    </div>
+    <!-- <div class="readmore">
+        {% for all in allpost %}
+            
+                <h5>{{all.title}}</h5>
+        {% endfor %}
+    </div> -->
+</div>
+{% endblock body %}

@@ -1,0 +1,118 @@
+{% extends 'base.html' %}
+{% block css %}
+    <style>
+     
+        .Homecontainer {
+            margin-top: 2.5px;
+            width: 100%;
+           
+        }
+        #showimg1{
+            width: 100%;
+            height: 80vh;
+        }
+        #showimg2{
+            width: 100%;
+            height: 80vh;
+        }
+        #showimg3{
+            width: 100%;
+            height: 80vh;
+        }
+        .homeblog {
+            width:100%;
+            display:flex;
+            justify-content: space-around;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+            
+        }
+        #blogimg {
+            width: 100%;
+            height: 20vh;
+        }
+        
+        #cardContainer:hover {
+          animation-name: card-shadow;
+          animation-duration: 1ms;
+          animation-fill-mode: forwards;
+        }
+        @keyframes card-shadow {
+          from {
+            box-shadow: 0px 0px;
+          }
+          to {
+            box-shadow: 0px 0px 15px;
+          }
+        }
+        #latest-heading {
+          text-align: center;
+          font-size: 3rem;
+          margin-top: 10vh;
+        }
+        #card-content {
+          font-size: small;
+        }
+    </style>
+{% endblock %}
+{% block body %}
+
+<div class="Homecontainer">
+    <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-indicators">
+          <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+          <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
+          <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
+        </div>
+        <div class="carousel-inner">
+          <div class="carousel-item active">
+            <img id="showimg1" src="/static/backpic.jpg" class="d-block w-100" alt="...">
+            <div class="carousel-caption d-none d-md-block">
+              <h5>First slide label</h5>
+              <p>Some representative placeholder content for the first slide.</p>
+            </div>
+          </div>
+          <div class="carousel-item">
+            <img id="showimg2" src="/static/bg.jpg" class="d-block w-100" alt="...">
+            <div class="carousel-caption d-none d-md-block">
+              <h5>Second slide label</h5>
+              <p>Some representative placeholder content for the second slide.</p>
+            </div>
+          </div>
+          <div class="carousel-item">
+            <img id="showimg3" src="/static/backpic1.jpg" class="d-block w-100" alt="...">
+            <div class="carousel-caption d-none d-md-block">
+              <h5>Third slide label</h5>
+              <p>Some representative placeholder content for the third slide.</p>
+            </div>
+          </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
+        </button>
+      </div>
+</div>
+
+  <h3 id="latest-heading">Read our latest blogs</h3>
+  <hr>
+  <div class="homeblog">
+    {% for p in post %}
+    
+        <div id="cardContainer" class="card" style="width: 18rem;">
+        <img id="blogimg" src="/media/{{p.img}}" class="card-img-top" alt="...">
+        <div class="card-body">
+          <h5 class="card-title">{{p.title}}</h5>
+          <p>{{p.date}}</p>
+          <p id="card-content" class="card-text">{{p.content|truncatechars_html:100|safe}}</p>
+          <a href="{% url 'fullBlog' p.id %}" class="btn btn-primary">Read more</a>
+        </div>
+      </div>
+    {% endfor %}  
+  </div>
+  
+  {% endblock %}

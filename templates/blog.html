@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% block body %}
+{% block css %} 
+<style>
+        h1{
+            font-family: 'Ubuntu', sans-serif
+           
+        }
+        
+    </style>
+
+{% endblock css %}
+        <div class="container">
+            {% for p in posts %}
+            
+                <div class="card" style="width: 100%; margin:1rem;border:none;">
+                    <!-- <img src="{{p.img}}" class="card-img-top" alt="..." > -->
+                    <div class="card-body">
+                        <h1 class="card-title">{{p.title}}</h1>
+                        <p>Written by {{p.author}} on {{p.date}}</p>
+                        <p class="card-text">{{p.content|truncatechars_html:100 |safe}}</p>
+                        <a href="{% url 'fullBlog' p.id %}" class="btn btn-primary">Read more</a>
+                    </div>
+                </div>
+                <hr>
+            {% endfor %}
+        </div>
+
+
+{% endblock body %}
