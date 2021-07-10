@@ -1,17 +1,18 @@
 from typing import ContextManager
 from django.http.response import HttpResponseRedirect
 from django.shortcuts import render,HttpResponse
-from home.models import Post
+from home.models import Post , Category
 from django.contrib.auth import authenticate,login
 from django.contrib.auth import logout
 from django.contrib.auth.models import User
 # Create your views here.
 def index(request):
     post = Post.objects.all()[::-1]
+    category = Category.objects.all()
     print(post)
     LatestPost = post[:4]
     print(LatestPost)
-    context = {"post":LatestPost}
+    context = {"post":LatestPost,"categories":category}
     return render(request,"index.html",context)
 
 def blog(request):
@@ -61,3 +62,10 @@ def handlesignup(request):
 def handlelogout(request):
     user = logout(request)
     return HttpResponseRedirect("/")
+
+def categoryPage(request,id):
+    print(id)
+    posts = Post.objects.filter(category=id)
+    print(posts)
+    context = {"posts":posts}
+    return render(request,"categoryPage.html",context)

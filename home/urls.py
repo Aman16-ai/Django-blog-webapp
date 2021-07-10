@@ -10,5 +10,6 @@ urlpatterns = [
     path('signupPage',views.signupPage,name="signuppage"),
     path("HandleSignup",views.handlesignup, name="handlesignup"),
     path("HandleLogin",views.handlelogin,name="handlelogin"),
-    path("logoutPage",views.handlelogout,name='handlelogout')
+    path("logoutPage",views.handlelogout,name='handlelogout'),
+    path("category/<str:id>",views.categoryPage,name="category")
 ]
