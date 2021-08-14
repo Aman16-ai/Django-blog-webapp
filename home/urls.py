@@ -11,5 +11,6 @@ urlpatterns = [
     path("HandleSignup",views.handlesignup, name="handlesignup"),
     path("HandleLogin",views.handlelogin,name="handlelogin"),
     path("logoutPage",views.handlelogout,name='handlelogout'),
-    path("category/<str:id>",views.categoryPage,name="category")
+    path("category/<str:id>",views.categoryPage,name="category"),
+    path("search",views.searchBlog,name="searchBlog")
 ]

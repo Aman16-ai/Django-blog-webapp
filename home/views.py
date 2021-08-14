@@ -69,3 +69,17 @@ def categoryPage(request,id):
     print(posts)
     context = {"posts":posts}
     return render(request,"categoryPage.html",context)
+
+
+def searchBlog(request):
+    if request.method == 'POST':
+        query = request.POST['searchbox']
+        print(query)
+        posts = Post.objects.all()
+        searchpostlst = []
+        for p in posts:
+            if query in p.title or query in p.content:
+                searchpostlst.append(p)
+            
+        context = {"searchblogs":searchpostlst}
+    return render(request,"searchpage.html",context)
