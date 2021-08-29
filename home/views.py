@@ -1,7 +1,8 @@
 from typing import ContextManager
+from django.http import response
 from django.http.response import HttpResponseRedirect
-from django.shortcuts import render,HttpResponse
-from home.models import Post , Category
+from django.shortcuts import redirect, render,HttpResponse
+from home.models import Post , Category ,likePost,ContactUsDetails,Comments
 from django.contrib.auth import authenticate,login
 from django.contrib.auth import logout
 from django.contrib.auth.models import User
@@ -25,7 +26,9 @@ def fullBlog(request,id):
     post = Post.objects.get(pk =id)
     print(post.img)
     allpost = Post.objects.all()
-    context = {"post":post,"allpost":allpost}
+    comments = Comments.objects.filter(post = post)
+    print(comments)
+    context = {"post":post,"allpost":allpost,"comments":comments}
     return render(request,'fullBlog.html',context)
     
 def signupPage(request):
@@ -83,3 +86,24 @@ def searchBlog(request):
             
         context = {"searchblogs":searchpostlst}
     return render(request,"searchpage.html",context)
+
+def postliked(request,id):
+    if request.method == 'POST':
+        post = Post.objects.get(pk=id)
+        print(post.likes)
+    return HttpResponse(id)
+
+
+def contactUsPage(request):
+    return render(request,"contactus.html")
+
+def handleContactus(request):
+    if request.method == "POST":
+        firstname = request.POST['firstNameIn']
+        lastname = request.POST['lastNameIn']
+        email = request.POST['emailIn']
+        message = request.POST['messageTextarea']
+        contact = ContactUsDetails(firstName = firstname,lastName = lastname,email= email,message = message )
+        contact.save()
+        
+    return redirect('/')

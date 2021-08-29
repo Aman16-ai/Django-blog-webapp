@@ -12,5 +12,8 @@ urlpatterns = [
     path("HandleLogin",views.handlelogin,name="handlelogin"),
     path("logoutPage",views.handlelogout,name='handlelogout'),
     path("category/<str:id>",views.categoryPage,name="category"),
-    path("search",views.searchBlog,name="searchBlog")
+    path("search",views.searchBlog,name="searchBlog"),
+    path("fullBlog/postliked/<str:id>",views.postliked,name="postliked"),
+    path("contactUs",views.contactUsPage,name="contactus"),
+    path("handleContactus",views.handleContactus,name="handleContactus")
 ]

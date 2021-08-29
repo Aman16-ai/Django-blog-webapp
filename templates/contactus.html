@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% block tabtitle %}Contact us{% endblock tabtitle %}
+{% block css %}
+    <style>
+        #heading{
+            text-align: center;
+            margin-top: 2vh;
+        }
+        
+    </style>
+{% endblock css %}
+{% block body %}
+    <div class="container">
+        <form action="handleContactus" method="post">
+            {% csrf_token %}
+            <h3 id="heading">Contact us</h3>
+        <div class="mb-3">
+            <label for="exampleFormControlInput1" class="form-label">First name</label>
+            <input type="text" class="form-control" id="input_firstname" name="firstNameIn">
+          </div>
+          <div class="mb-3">
+            <label for="exampleFormControlInput1" class="form-label">Last name</label>
+            <input type="text" class="form-control" id="input_lastname" name="lastNameIn">
+          </div>
+        <div class="mb-3">
+            <label for="exampleFormControlInput1" class="form-label">Email address</label>
+            <input type="email" class="form-control" id="input_email" name="emailIn" placeholder="name@example.com">
+          </div>
+          <div class="mb-3">
+            <label for="exampleFormControlTextarea1" class="form-label">Message</label>
+            <textarea class="form-control" name="messageTextarea" id="exampleFormControlTextarea1" rows="3"></textarea>
+            <button class="btn btn-primary my-3" type="submit">Send</button>
+          </div>
+        </form>
+    </div>
+{% endblock body %}
