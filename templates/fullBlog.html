@@ -2,10 +2,9 @@
 {% block tabtitle %}{{post.title}}{% endblock tabtitle %}
 {% block css %}
 <style>
-   
     .container {
         width: 100%;
-        
+
     }
 
     #mainImg {
@@ -25,18 +24,43 @@
         margin-top: 0.5rem;
 
     }
+
     #likebtn {
         border: none;
         background-color: white;
-       
-        
+
+
     }
+
     #likebtn img {
-       width: 2.5vw;
-       height: 4vh;
-        
+        width: 2.5vw;
+        height: 4vh;
+
     }
+
+    #userImg {
+        width: 5vw;
+        height: 10vh;
+        background-color: black;
+        border: 2px solid black;
+
+    }
+
+    .card-body{
+        display: flex;
+        flex-direction: row;
     
+    }
+    #commentdate{
+        width: 7vw;
+        padding: 0.2rem;
+        font-size: small;
+        color: white;
+        font-weight: bold;
+        background-color: #6c757d;
+        border-radius: 0.3rem;
+        text-align: center;
+    }
 </style>
 {% endblock css %}
 {% block body %}
@@ -45,28 +69,34 @@
         <h1 id="mainHeading">{{post.title}}</h1>
         <h6 id="authorHeading">Written by {{post.author}} on {{post.date}}</h6>
         <form action="postliked/{{post.id}}" method="post">
-        {% csrf_token %}
-        <button id="likebtn"> <img src="/static/likebtnpng.png" alt="likeimgs"> </button>
-        <p style="display: inline" id ="likecount">{{likes.likes}}</p>
+            {% csrf_token %}
+            <button id="likebtn"> <img src="/static/likebtnpng.png" alt="likeimgs"> </button>
+            <p style="display: inline" id="likecount">{{likes.likes}}</p>
         </form>
         <img src="/media/{{post.img}}" alt="" id="mainImg">
         <p>{{post.content|safe}}</p>
-    
-        <h1>Comments</h1>
+
+        <div class="post-comment-container">
+            <h2>Post comment</h2>
+            <form action="postcomment/{{post.id}}" method="post">
+                {% csrf_token %}
+                <textarea name="comment" id="commenttextarea" class="form-control my-2" cols="30" rows="2" placeholder="write a comment..."></textarea>
+                <button type="submit" class="btn btn-danger my-2">Post</button>
+            </form>
+        </div>
+        <h1 class="my-3">{{blog_count}} Comments</h1>
         {% for c in comments %}
-            <div class="card" style="width: 18rem;">
+        <div class="card my-2" style="width: 100%;">
             <div class="card-body">
-              <p class="card-text">{{c.comment}}</p>
-              <p style="font-size: x-small;">Written by {{c.user}} on {{c.date}} </p>
+                <img class="rounded-circle" id="userImg" src="../static/image/userimg.png">
+                <div class="commentsDetails mx-3">
+                    <h5 id="userheading">{{c.user}}</h5>
+                    <p id="commentdate">{{c.date}}</p>
+                    <p class="card-text">{{c.comment}}</p>
+                </div>
             </div>
-          </div>
+        </div>
         {% endfor %}
     </div>
-    <!-- <div class="readmore">
-        {% for all in allpost %}
-            
-                <h5>{{all.title}}</h5>
-        {% endfor %}
-    </div> -->
 </div>
 {% endblock body %}

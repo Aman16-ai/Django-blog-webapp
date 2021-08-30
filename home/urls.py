@@ -15,5 +15,6 @@ urlpatterns = [
     path("search",views.searchBlog,name="searchBlog"),
     path("fullBlog/postliked/<str:id>",views.postliked,name="postliked"),
     path("contactUs",views.contactUsPage,name="contactus"),
-    path("handleContactus",views.handleContactus,name="handleContactus")
+    path("handleContactus",views.handleContactus,name="handleContactus"),
+    path("fullBlog/postcomment/<int:id>",views.handlepostcommet,name="postcomment")
 ]

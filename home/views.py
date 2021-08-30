@@ -6,6 +6,7 @@ from home.models import Post , Category ,likePost,ContactUsDetails,Comments
 from django.contrib.auth import authenticate,login
 from django.contrib.auth import logout
 from django.contrib.auth.models import User
+from datetime import datetime
 # Create your views here.
 def index(request):
     post = Post.objects.all()[::-1]
@@ -28,7 +29,8 @@ def fullBlog(request,id):
     allpost = Post.objects.all()
     comments = Comments.objects.filter(post = post)
     print(comments)
-    context = {"post":post,"allpost":allpost,"comments":comments}
+    blog_count = len(comments)
+    context = {"post":post,"allpost":allpost,"comments":comments,"blog_count":blog_count}
     return render(request,'fullBlog.html',context)
     
 def signupPage(request):
@@ -107,3 +109,16 @@ def handleContactus(request):
         contact.save()
         
     return redirect('/')
+
+def handlepostcommet(request,id):
+    if request.method == 'POST':
+        comment = request.POST['comment']
+        print(comment)
+        print(request.user)
+        print(datetime.today)
+        print(id)
+        post = Post.objects.get(pk=id)
+        postcomment = Comments(comment = comment,user=request.user,post=post)
+        postcomment.save()
+        return redirect(f"/fullBlog/{id}")
+    return HttpResponse("Something went wrong")
