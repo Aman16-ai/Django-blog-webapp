@@ -24,7 +24,7 @@
                 <a class="nav-link active" aria-current="page" href="/">Home</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link active" href="blog">Blog</a>
+                <a class="nav-link active" href="/blog">Blog</a>
               </li>
               <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -32,7 +32,7 @@
                 </a>
                 <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                   {% for category in categories %}
-                    <li><form action="category/{{category.id}}" method="post" style="display:flex; flex-direction:row; width:30vw">
+                    <li><form action="/category/{{category.id}}/" method="post" style="display:flex; flex-direction:row; width:30vw">
                     {% csrf_token %}
                     <img src="/media/{{category.img}}" class="img-thumbnail" style="width: 15vw;" alt="...">
                     <button  class="dropdown-item">{{category.title}}</a>
@@ -60,11 +60,11 @@
               <button class="btn btn-outline-success" type="submit">Logout</button>
             </form> 
             {% else %}
-              <form  class="d-flex mx-2" method="POST" action="loginPage">
+              <form  class="d-flex mx-2" method="POST" action="/loginPage/">
               {% csrf_token %}
               <button class="btn btn-outline-success" type="submit">Login</button>
             </form>
-            <form class="d-flex" method="POST" action="signupPage">
+            <form class="d-flex" method="POST" action="/signupPage/">
               {% csrf_token %}
               <button class="btn btn-outline-success" type="submit">Sign up</button>
             </form>

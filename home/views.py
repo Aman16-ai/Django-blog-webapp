@@ -7,10 +7,11 @@ from django.contrib.auth import authenticate,login
 from django.contrib.auth import logout
 from django.contrib.auth.models import User
 from datetime import datetime
+from home.fetchCategory import all_categories
 # Create your views here.
 def index(request):
     post = Post.objects.all()[::-1]
-    category = Category.objects.all()
+    category = all_categories()
     print(post)
     LatestPost = post[:4]
     print(LatestPost)
@@ -18,8 +19,9 @@ def index(request):
     return render(request,"index.html",context)
 
 def blog(request):
+    category = all_categories()
     post = Post.objects.all()[::-1]
-    context = {"posts":post}
+    context = {"posts":post,"categories":category}
     return render(request,"blog.html",context)
 
 
@@ -113,10 +115,6 @@ def handleContactus(request):
 def handlepostcommet(request,id):
     if request.method == 'POST':
         comment = request.POST['comment']
-        print(comment)
-        print(request.user)
-        print(datetime.today)
-        print(id)
         post = Post.objects.get(pk=id)
         postcomment = Comments(comment = comment,user=request.user,post=post)
         postcomment.save()
