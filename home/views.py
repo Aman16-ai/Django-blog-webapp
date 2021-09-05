@@ -40,7 +40,7 @@ def signupPage(request):
   
 
 def loginPage(request):
-    return render(request,"loginPage.html")
+    return render(request,"newLoginPage.html")
 def handlelogin(request):
     if request.method == 'POST':
         username = request.POST['Username_login']
