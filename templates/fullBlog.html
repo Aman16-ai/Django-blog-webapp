@@ -71,7 +71,7 @@
         <form action="postliked/{{post.id}}" method="post">
             {% csrf_token %}
             <button id="likebtn"> <img src="/static/likebtnpng.png" alt="likeimgs"> </button>
-            <p style="display: inline" id="likecount">{{likes.likes}}</p>
+            <p style="display: inline" id="likecount">{{likes_count}}</p>
         </form>
         <img src="/media/{{post.img}}" alt="" id="mainImg">
         <p>{{post.content|safe}}</p>

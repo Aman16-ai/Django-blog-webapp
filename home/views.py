@@ -2,7 +2,7 @@ from typing import ContextManager
 from django.http import response
 from django.http.response import HttpResponseRedirect
 from django.shortcuts import redirect, render,HttpResponse
-from home.models import Post , Category ,likePost,ContactUsDetails,Comments
+from home.models import Post , Category,ContactUsDetails,Comments
 from django.contrib.auth import authenticate,login
 from django.contrib.auth import logout
 from django.contrib.auth.models import User
@@ -32,7 +32,8 @@ def fullBlog(request,id):
     comments = Comments.objects.filter(post = post)
     print(comments)
     blog_count = len(comments)
-    context = {"post":post,"allpost":allpost,"comments":comments,"blog_count":blog_count}
+    likes_count = len(post.likes.all())
+    context = {"post":post,"allpost":allpost,"comments":comments,"blog_count":blog_count,"likes_count":likes_count}
     return render(request,'fullBlog.html',context)
     
 def signupPage(request):
@@ -94,8 +95,16 @@ def searchBlog(request):
 def postliked(request,id):
     if request.method == 'POST':
         post = Post.objects.get(pk=id)
-        print(post.likes)
-    return HttpResponse(id)
+        is_liked = False
+        for p in post.likes.all():
+            if p == request.user:
+                is_liked = True
+                
+        if is_liked:
+            post.likes.remove(request.user)
+        else:
+            post.likes.add(request.user)
+    return redirect(f"/fullBlog/{id}")
 
 
 def contactUsPage(request):

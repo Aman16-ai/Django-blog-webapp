@@ -22,17 +22,10 @@ class Post(models.Model):
     content = FroalaField()
     date = models.DateField(default=datetime.date.today,null=True)
     category = models.ForeignKey(Category,on_delete=CASCADE,null=True)
-    likes = models.IntegerField(null=True,blank=True)
+    likes = models.ManyToManyField(User,related_name="blog_likes",blank=True,null=True)
     def __str__(self):
         return  self.title
     
-class likePost(models.Model):
-    id = models.AutoField(primary_key=True)
-    user = models.ForeignKey(User,null=True,blank=True ,on_delete=CASCADE)
-    likecounts = models.IntegerField(null=True,blank=True)
-    post = models.ForeignKey(Post,null=True,blank=True,on_delete=CASCADE)
-    def __str__(self):
-        return self.post
     
     
 class ContactUsDetails(models.Model):
