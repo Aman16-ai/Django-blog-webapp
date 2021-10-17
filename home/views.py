@@ -93,18 +93,18 @@ def searchBlog(request):
     return render(request,"searchpage.html",context)
 
 def postliked(request,id):
-    if request.method == 'POST':
-        post = Post.objects.get(pk=id)
-        is_liked = False
-        for p in post.likes.all():
-            if p == request.user:
-                is_liked = True
+    post = Post.objects.get(pk=id)
+    is_liked = False
+    for p in post.likes.all():
+        if p == request.user:
+            is_liked = True
                 
         if is_liked:
             post.likes.remove(request.user)
         else:
             post.likes.add(request.user)
     return redirect(f"/fullBlog/{id}")
+        
 
 
 def contactUsPage(request):

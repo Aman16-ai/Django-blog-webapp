@@ -70,7 +70,7 @@
         <h6 id="authorHeading">Written by {{post.author}} on {{post.date}}</h6>
         <form action="postliked/{{post.id}}" method="post">
             {% csrf_token %}
-            <button id="likebtn"> <img src="/static/likebtnpng.png" alt="likeimgs"> </button>
+            <button id="likebtn" name="like"> <img src="/static/likebtnpng.png" alt="likeimgs"> </button>
             <p style="display: inline" id="likecount">{{likes_count}}</p>
         </form>
         <img src="/media/{{post.img}}" alt="" id="mainImg">
