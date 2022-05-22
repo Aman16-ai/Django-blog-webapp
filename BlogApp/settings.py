@@ -25,7 +25,7 @@ SECRET_KEY = '_xm(67922e0g#+!7&pk+y%hb&j7s@i*gj*ff#s6%2qklkef=u-'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['127.0.0.1']
+ALLOWED_HOSTS = ['127.0.0.1','smartbloggerdjango.herokuapp.com']
 
 
 # Application definition
